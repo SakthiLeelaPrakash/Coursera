@@ -1,2 +1,0 @@
-# Coursera
-Repository for Coursera
