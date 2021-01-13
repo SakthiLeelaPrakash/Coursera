@@ -1,27 +1,55 @@
 <!doctype html>
-<html ng-app="LunchCheckerApp">
+<html lang="en" ng-app="ShoppingListApp">
   <head>
-    <meta charset="utf-8">
-    <script src="angular.min.js"> </script>
-    <script src="app.js"> </script>
-    <style> body { font-size: 1.3em; }</style>
-    <title>Lunch Checker</title>
+    <title>Shopping List Check Off</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
   </head>
 <body>
-   <h1>Lunch Checker!!</h1>
-   <div ng-controller="LunchCheckerController">
-         <div>
-             Enter items : <input type="text" size = "90"
-             placeholder="list comma separated dishes you usually have for lunch"
-              ng-model="items">
-               <button ng-click="countNoOfItems()">Check If Too Much</button>
-            </p>
-         </div>
-         <div>
-           {{message}}
-         </div>
-       </p>
-        <div>Note: This application is Not considering empty item, i.e., , , as an item towards to the count. </div>
+  <div class="container">
+  <h1>Shopping List Check Off</h1>
+
+  <div class="row">
+
+    <!-- To Buy List -->
+    <div class="col-md-6" ng-controller="ToBuyController as tobuy">
+     <h2>To Buy:</h2>
+     <ul>
+       <li ng-repeat="item in tobuy.toBuyItems">Buy {{item.quantity}} {{item.name}} <button ng-click="tobuy.buyItem($index)" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
+     </ul>
+     <div class="emptyMessage" ng-show="!tobuy.toBuyItems.length">Everything is bought!</div>
+    </div>
+
+    <!-- Already Bought List -->
+    <div class="col-md-6" ng-controller="AlreadyBoughtController as alreadybought">
+     <h2>Already Bought:</h2>
+     <ul>
+       <li ng-repeat="item in alreadybought.alreadyboughtitems">Bought {{item.quantity}} {{item.name}}</li>
+     </ul>
+
+     <div class="emptyMessage" ng-hide="alreadybought.alreadyboughtitems.length">Nothing bought yet.</div>
+    </div>
+  </div>
 </div>
+
 </body>
 </html>
